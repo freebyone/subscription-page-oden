@@ -35,11 +35,18 @@ export const BenefitsWidget = ({ isMobile }: IProps) => {
     const { t } = useTranslation()
 
     return (
-        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={isMobile ? 'md' : 'xl'}>
+        <SimpleGrid
+            cols={{ base: 1, sm: 3 }}
+            spacing={isMobile ? 'md' : 'xl'}
+            style={{
+                borderTop: '1px solid var(--mantine-color-gray-3)',
+                paddingTop: 'var(--mantine-spacing-xl)'
+            }}
+        >
             {ITEMS.map((item) => (
                 <Stack align={isMobile ? 'center' : 'flex-start'} gap={4} key={item.title.ru}>
-                    <item.icon color="var(--mantine-color-red-5)" size={32} stroke={1.8} />
-                    <Text c="white" fw={700} size="md" ta={isMobile ? 'center' : 'left'}>
+                    <item.icon color="var(--mantine-color-red-7)" size={30} stroke={1.9} />
+                    <Text fw={700} size="md" ta={isMobile ? 'center' : 'left'}>
                         {t(item.title)}
                     </Text>
                     <Text c="dimmed" size="sm" ta={isMobile ? 'center' : 'left'}>

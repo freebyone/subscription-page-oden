@@ -31,7 +31,8 @@ export function App() {
         <DirectionProvider>
             <MantineProvider
                 cssVariablesResolver={v8CssVariablesResolver}
-                defaultColorScheme="dark"
+                defaultColorScheme="light"
+                forceColorScheme="light"
                 theme={theme}
             >
                 <ModalsProvider>

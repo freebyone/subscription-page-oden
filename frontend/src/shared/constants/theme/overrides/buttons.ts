@@ -9,8 +9,8 @@ export default {
     }),
     Button: Button.extend({
         defaultProps: {
-            radius: 'lg',
-            variant: 'outline'
+            radius: 'md',
+            variant: 'filled'
         }
     })
 }

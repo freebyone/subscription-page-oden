@@ -1,22 +1,9 @@
-import { Box, Center, Container, Group, Image, Stack, Title } from '@mantine/core'
+import { Box, Center, Container, Image, Stack, Title } from '@mantine/core'
 import { TSubscriptionPagePlatformKey } from '@remnawave/subscription-page-types'
 
-import {
-    AccordionBlockRenderer,
-    BenefitsWidget,
-    CardsBlockRenderer,
-    InstallationGuideConnector,
-    MinimalBlockRenderer,
-    QuickConnectWidget,
-    RawKeysWidget,
-    SubscriptionInfoCardsWidget,
-    SubscriptionInfoCollapsedWidget,
-    SubscriptionInfoExpandedWidget,
-    SubscriptionLinkWidget,
-    TimelineBlockRenderer
-} from '@widgets/main'
 import { useAppConfig, useAppConfigStoreActions, useCurrentLang } from '@entities/app-config-store'
 import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
+import { AppChooserWidget, BenefitsWidget } from '@widgets/main'
 import { Page, RemnawaveLogo } from '@shared/ui'
 
 interface IMainPageComponentProps {
@@ -24,21 +11,7 @@ interface IMainPageComponentProps {
     platform: TSubscriptionPagePlatformKey | undefined
 }
 
-const BLOCK_RENDERERS = {
-    cards: CardsBlockRenderer,
-    timeline: TimelineBlockRenderer,
-    accordion: AccordionBlockRenderer,
-    minimal: MinimalBlockRenderer
-} as const
-
-const SUBSCRIPTION_INFO_BLOCK_RENDERERS = {
-    cards: SubscriptionInfoCardsWidget,
-    collapsed: SubscriptionInfoCollapsedWidget,
-    expanded: SubscriptionInfoExpandedWidget,
-    hidden: null
-} as const
-
-export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProps) => {
+export const MainPageComponent = ({ isMobile }: IMainPageComponentProps) => {
     const config = useAppConfig()
     const currentLang = useCurrentLang()
     const { setLanguage } = useAppConfigStoreActions()
@@ -52,84 +25,27 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
         }
     }
 
-    const hasPlatformApps: Record<TSubscriptionPagePlatformKey, boolean> = {
-        ios: Boolean(config.platforms.ios?.apps.length),
-        android: Boolean(config.platforms.android?.apps.length),
-        linux: Boolean(config.platforms.linux?.apps.length),
-        macos: Boolean(config.platforms.macos?.apps.length),
-        windows: Boolean(config.platforms.windows?.apps.length),
-        androidTV: Boolean(config.platforms.androidTV?.apps.length),
-        appleTV: Boolean(config.platforms.appleTV?.apps.length)
-    }
-
-    const atLeastOnePlatformApp = Object.values(hasPlatformApps).some((value) => value)
-
-    const SubscriptionInfoBlockRenderer =
-        SUBSCRIPTION_INFO_BLOCK_RENDERERS[config.uiConfig.subscriptionInfoBlockType]
-
     return (
         <Page>
-            <Box className="header-wrapper" py="md">
-                <Container maw={1200} px={{ base: 'md', sm: 'lg', md: 'xl' }}>
-                    <Group justify="space-between">
-                        <Group gap="sm" style={{ userSelect: 'none' }} wrap="nowrap">
-                            {hasCustomLogo ? (
-                                <Image
-                                    alt="logo"
-                                    fit="contain"
-                                    src={config.brandingSettings.logoUrl}
-                                    style={{
-                                        width: '32px',
-                                        height: '32px',
-                                        flexShrink: 0
-                                    }}
-                                />
-                            ) : (
-                                <RemnawaveLogo c="red" size={32} />
-                            )}
-                            <Title
-                                c={hasCustomLogo ? 'white' : 'red'}
-                                fw={700}
-                                order={4}
-                                size="lg"
-                            >
-                                {brandName}
-                            </Title>
-                        </Group>
+            <Container maw={940} px={{ base: 'md', sm: 'lg', md: 'xl' }} py={{ base: 'lg', sm: 'xl' }}>
+                <Stack gap={isMobile ? 32 : 48}>
+                    <Box className="header-wrapper">
+                        {hasCustomLogo ? (
+                            <Image
+                                alt="logo"
+                                fit="contain"
+                                src={config.brandingSettings.logoUrl}
+                                style={{ width: '44px', height: '44px', flexShrink: 0 }}
+                            />
+                        ) : (
+                            <RemnawaveLogo c="red" size={40} />
+                        )}
+                        <Title fw={800} ml="sm" order={2}>
+                            {brandName}
+                        </Title>
+                    </Box>
 
-                        <SubscriptionLinkWidget
-                            hideGetLink={config.baseSettings.hideGetLinkButton}
-                            supportUrl={config.brandingSettings.supportUrl}
-                        />
-                    </Group>
-                </Container>
-            </Box>
-
-            <Container
-                maw={1200}
-                px={{ base: 'md', sm: 'lg', md: 'xl' }}
-                py="xl"
-                style={{ position: 'relative', zIndex: 1 }}
-            >
-                <Stack gap="xl">
-                    {SubscriptionInfoBlockRenderer && (
-                        <SubscriptionInfoBlockRenderer isMobile={isMobile} />
-                    )}
-
-                    <QuickConnectWidget isMobile={isMobile} platform={platform} />
-
-                    {atLeastOnePlatformApp && (
-                        <InstallationGuideConnector
-                            BlockRenderer={
-                                BLOCK_RENDERERS[config.uiConfig.installationGuidesBlockType]
-                            }
-                            hasPlatformApps={hasPlatformApps}
-                            isMobile={isMobile}
-                            platform={platform}
-                        />
-                    )}
-
-                    <RawKeysWidget isMobile={isMobile} />
+                    <AppChooserWidget isMobile={isMobile} />
 
                     <BenefitsWidget isMobile={isMobile} />
 

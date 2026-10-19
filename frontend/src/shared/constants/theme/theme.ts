@@ -98,7 +98,7 @@ export const theme = createTheme({
             '#5c0606'
         ]
     },
-    primaryShade: 8,
+    primaryShade: 6,
     primaryColor: 'red',
     autoContrast: true,
     luminanceThreshold: 0.3,
