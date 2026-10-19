@@ -84,10 +84,22 @@ export const theme = createTheme({
             '#762c00',
             '#5c2200',
             '#471700'
+        ],
+        red: [
+            '#ffebe9',
+            '#ffcecb',
+            '#ffaba8',
+            '#ff8182',
+            '#fa5252',
+            '#e03131',
+            '#c92a2a',
+            '#a51111',
+            '#820a0a',
+            '#5c0606'
         ]
     },
     primaryShade: 8,
-    primaryColor: 'cyan',
+    primaryColor: 'red',
     autoContrast: true,
     luminanceThreshold: 0.3,
     headings: {
