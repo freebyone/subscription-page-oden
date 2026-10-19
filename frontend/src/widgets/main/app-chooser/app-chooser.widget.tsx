@@ -4,6 +4,7 @@ import {
 } from '@remnawave/subscription-page-types'
 import { Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { IconChevronRight, IconDownload, IconExternalLink } from '@tabler/icons-react'
+import clsx from 'clsx'
 
 import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
 import { useSubscription } from '@entities/subscription-info-store'
@@ -41,6 +42,9 @@ export const AppChooserWidget = ({ isMobile }: IProps) => {
         window.location.href,
         subscription.user.shortUuid
     )
+
+    const isSubscriptionActive =
+        subscription.user.userStatus === 'ACTIVE' && subscription.user.daysLeft > 0
 
     // Один и тот же клиент (Happ, Incy, …) настраивается в панели отдельно под
     // каждую платформу. На референс-странице он показан одной секцией со списком
@@ -113,9 +117,18 @@ export const AppChooserWidget = ({ isMobile }: IProps) => {
     return (
         <Stack gap={isMobile ? 32 : 44}>
             <Stack gap={isMobile ? 'sm' : 'md'}>
-                <div className="status-pill">
+                <div
+                    className={clsx(
+                        'status-pill',
+                        isSubscriptionActive ? 'status-pill-active' : 'status-pill-inactive'
+                    )}
+                >
                     <span className="status-dot" />
-                    {t(baseTranslations.active)}
+                    {t(
+                        isSubscriptionActive
+                            ? baseTranslations.active
+                            : baseTranslations.inactive
+                    )}
                 </div>
 
                 <Title

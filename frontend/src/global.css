@@ -23,19 +23,31 @@ body {
     border: 1px solid var(--mantine-color-gray-3);
     border-radius: 999px;
     background: #ffffff;
-    color: var(--mantine-color-red-7);
+    color: var(--status-color);
     padding: 8px 18px;
     font-size: var(--mantine-font-size-sm);
     font-weight: 500;
     box-shadow: 0 8px 20px rgba(27, 40, 68, 0.04);
 }
 
+/* Цвет пилюли следует за реальным статусом подписки, а не за брендовым
+   красным: зелёный кружок рядом со словом «Истекла» вводил бы в заблуждение. */
+.status-pill-active {
+    --status-color: var(--mantine-color-green-7);
+    --status-glow: var(--mantine-color-green-0);
+}
+
+.status-pill-inactive {
+    --status-color: var(--mantine-color-red-7);
+    --status-glow: var(--mantine-color-red-0);
+}
+
 .status-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--mantine-color-red-7);
-    box-shadow: 0 0 0 4px var(--mantine-color-red-0);
+    background: var(--status-color);
+    box-shadow: 0 0 0 4px var(--status-glow);
 }
 
 .download-card {
