@@ -3,9 +3,11 @@ import { TSubscriptionPagePlatformKey } from '@remnawave/subscription-page-types
 
 import {
     AccordionBlockRenderer,
+    BenefitsWidget,
     CardsBlockRenderer,
     InstallationGuideConnector,
     MinimalBlockRenderer,
+    QuickConnectWidget,
     RawKeysWidget,
     SubscriptionInfoCardsWidget,
     SubscriptionInfoCollapsedWidget,
@@ -114,6 +116,8 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
                         <SubscriptionInfoBlockRenderer isMobile={isMobile} />
                     )}
 
+                    <QuickConnectWidget isMobile={isMobile} platform={platform} />
+
                     {atLeastOnePlatformApp && (
                         <InstallationGuideConnector
                             BlockRenderer={
@@ -126,6 +130,8 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
                     )}
 
                     <RawKeysWidget isMobile={isMobile} />
+
+                    <BenefitsWidget isMobile={isMobile} />
 
                     <Center>
                         <LanguagePicker

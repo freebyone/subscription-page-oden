@@ -1,4 +1,6 @@
+export * from './benefits'
 export * from './installation-guide'
+export * from './quick-connect'
 export * from './raw-keys'
 export * from './subscription-info'
 export * from './subscription-link'
