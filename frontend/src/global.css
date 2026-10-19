@@ -33,20 +33,24 @@ body {
 /* Цвет пилюли следует за реальным статусом подписки, а не за брендовым
    красным: зелёный кружок рядом со словом «Истекла» вводил бы в заблуждение. */
 .status-pill-active {
-    --status-color: var(--mantine-color-green-7);
+    --status-color: var(--mantine-color-green-5);
+    --status-dot-color: var(--mantine-color-green-4);
     --status-glow: var(--mantine-color-green-0);
 }
 
 .status-pill-inactive {
     --status-color: var(--mantine-color-red-7);
+    --status-dot-color: var(--mantine-color-red-5);
     --status-glow: var(--mantine-color-red-0);
 }
 
+/* Кружок ярче текста: тексту нужен контраст с белым фоном, а точке —
+   заметность, и один и тот же оттенок не даёт ни того, ни другого. */
 .status-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--status-color);
+    background: var(--status-dot-color);
     box-shadow: 0 0 0 4px var(--status-glow);
 }
 
